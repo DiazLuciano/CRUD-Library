@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using WebApi.Domain.Validators;
 using WebApi.Models.Dto;
 using WebApi.Models.Entities;
 using WebApi.Repositories;
@@ -40,7 +42,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBook([FromBody] BookDto bookDto)
+        public async Task<IActionResult> CreateBook([FromBody] BookPostDto bookDto)
         {
             if (bookDto == null)
             {
@@ -50,13 +52,22 @@ namespace WebApi.Controllers
             // Validacion del formulario, por si falta algo, alguna validacion que no se cumple...
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            BookDtoValidator validator = new BookDtoValidator();
+            ValidationResult results = validator.Validate(bookDto);
+
+            if (!results.IsValid)
+            {
+                var errors = results.Errors.Select(error => error.ErrorMessage);
+                return BadRequest(new { Errors = errors });
+            }
 
             var insertedBookDto = await _bookService.Insert(bookDto);
             return Created("created", insertedBookDto);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookDto bookDto)
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookPostDto bookDto)
         {
             if (bookDto == null)
             {
@@ -66,6 +77,15 @@ namespace WebApi.Controllers
             // Validacion del formulario, por si falta algo, alguna validacion que no se cumple...
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            BookDtoValidator validator = new BookDtoValidator();
+            ValidationResult results = validator.Validate(bookDto);
+
+            if (!results.IsValid)
+            {
+                var errors = results.Errors.Select(error => error.ErrorMessage);
+                return BadRequest(new { Errors = errors });
+            }
 
             var result = await _bookService.UpdateBook(id, bookDto);
             if (!result)

@@ -10,6 +10,7 @@ namespace WebApi.Models.Profiles
         {
             CreateMap<Book, BookDto>();
             CreateMap<BookDto, Book>();
+            CreateMap<BookPostDto, Book>();
         }
     }
 }

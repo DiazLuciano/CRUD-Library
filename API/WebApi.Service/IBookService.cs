@@ -6,8 +6,8 @@ namespace WebApi.Service
     {
         Task<IEnumerable<BookDto>> GetAllBooks();
         Task<BookDto> GetBookById(int id);
-        Task<BookDto> Insert(BookDto book);
-        Task<bool> UpdateBook(int id, BookDto bookDto);
+        Task<BookDto> Insert(BookPostDto book);
+        Task<bool> UpdateBook(int id, BookPostDto bookDto);
         Task<bool> SoftDeleteBook(int id);
     }
 }

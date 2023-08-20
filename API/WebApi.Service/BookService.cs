@@ -30,14 +30,14 @@ namespace WebApi.Service
             return _mapper.Map<BookDto>(book);
         }
 
-        public async Task<BookDto> Insert(BookDto bookDto)
+        public async Task<BookDto> Insert(BookPostDto bookPostDto)
         {
-            var book = _mapper.Map<Book>(bookDto);
+            var book = _mapper.Map<Book>(bookPostDto);
             var insertedBook = await _bookRepository.Insert(book);
             return _mapper.Map<BookDto>(insertedBook);
         }
 
-        public async Task<bool> UpdateBook(int id, BookDto bookDto)
+        public async Task<bool> UpdateBook(int id, BookPostDto bookPostDto)
         {
             var existingBook = await _bookRepository.GetById(id);
             if (existingBook == null)
@@ -45,7 +45,7 @@ namespace WebApi.Service
                 return false;
             }
 
-            _mapper.Map(bookDto, existingBook); // Actualizar propiedades
+            _mapper.Map(bookPostDto, existingBook); // Actualizar propiedades
             await _bookRepository.Update(existingBook);
             return true;
         }

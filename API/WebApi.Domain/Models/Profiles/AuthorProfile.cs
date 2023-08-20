@@ -8,7 +8,7 @@ namespace WebApi.Models.Profiles
     {
         public AuthorProfile()
         {
-            CreateMap<Author, AuthorDto>();
+            CreateMap<Author, AuthorPostDto>();
         }
     }
 }
