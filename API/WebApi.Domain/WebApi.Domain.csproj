@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApi.Domain\WebApi.Domain.csproj" />
-    <ProjectReference Include="..\WebApi.Repositories\WebApi.Repositories.csproj" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
   </ItemGroup>
 
 </Project>

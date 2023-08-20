@@ -8,6 +8,6 @@ namespace WebApi.Models.Dto
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public int Stock { get; set; }
-        public Author Author { get; set; }
+        public int AuthorId { get; set; }
     }
 }

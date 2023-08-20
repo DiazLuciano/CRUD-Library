@@ -43,24 +43,10 @@ namespace WebApi.Repositories
             return true;
         }
 
-        public async Task<bool> Update(Book book)
+        public async Task Update(Book book)
         {
-            var existingBook = await _context.Books.FindAsync(book.Id);
-
-            if (existingBook == null)
-            {
-                return false; // El libro no fue encontrado, no se puede actualizar.
-            }
-
-            // Actualizar las propiedades necesarias del libro existente con los valores del libro proporcionado.
-            existingBook.Title = book.Title;
-            existingBook.Description = book.Description;
-            existingBook.Stock = book.Stock;
-            existingBook.CreatedDate = book.CreatedDate;
-            //existingBook.Author = book.AuthorId;
-
+            _context.Books.Update(book);
             await _context.SaveChangesAsync();
-            return true;
         }
     }
 }

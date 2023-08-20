@@ -7,7 +7,7 @@ namespace WebApi.Repositories
         Task<IEnumerable<Book>> GetAll();
         Task<Book>? GetById(int id);
         Task<Book> Insert(Book book);
-        Task<bool> Update(Book book);
+        Task Update(Book book);
         Task<bool> SoftDelete(int id);
     }
 }

@@ -4,7 +4,10 @@ namespace WebApi.Service
 {
     public interface IBookService
     {
+        Task<IEnumerable<BookDto>> GetAllBooks();
         Task<BookDto> GetBookById(int id);
-        Task<bool> UpdateBook(int id, string newTitle);
+        Task<BookDto> Insert(BookDto book);
+        Task<bool> UpdateBook(int id, BookDto bookDto);
+        Task<bool> SoftDeleteBook(int id);
     }
 }

@@ -9,6 +9,7 @@ namespace WebApi.Models.Profiles
         public BookProfile()
         {
             CreateMap<Book, BookDto>();
+            CreateMap<BookDto, Book>();
         }
     }
 }

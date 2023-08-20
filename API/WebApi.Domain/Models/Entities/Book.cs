@@ -17,6 +17,8 @@ namespace WebApi.Models.Entities
 
         [Required(ErrorMessage = "{0} is required")]
         public int Stock { get; set; }
-        public Author Author { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        public int AuthorId { get; set; }
     }
 }

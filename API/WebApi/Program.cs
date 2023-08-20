@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using WebApi.Data.AccessData;
+using WebApi.Models.Profiles;
 using WebApi.Repositories;
+using WebApi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,20 +15,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add Automapper.  
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(BookProfile));
 
 // Add connection to MySql database.
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContext<MySqlDbContext>(options =>
 {
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 26)), b => b.MigrationsAssembly("WebApi.Repositories"));
 });
 
 // Add repositories.
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 // Add services.
-//builder.Services.AddScoped<>
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
