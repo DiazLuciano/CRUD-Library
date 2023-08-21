@@ -1,21 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
 
+// Routing
 import { AppRoutingModule } from './app-routing.module';
+
+// Componets
 import { AppComponent } from './app.component';
+
+// Services
+import { GlobalErrorHandlerService } from 'src/core/services/global-error-handler.service';
+
+// Modules
+import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
-import { ButtonModule } from 'primeng/button';
+import { SharedModule } from 'src/shared/shared.module';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,
+    SharedModule,
     StoreModule.forRoot({}, {})
   ],
-  providers: [],
+  providers: [{ provide: ErrorHandler, useClass: GlobalErrorHandlerService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
