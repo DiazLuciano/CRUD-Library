@@ -1,33 +1,44 @@
 
 <div class="card">
   <p-toast></p-toast>
-
-  <p-table>
-      <ng-template pTemplate="caption">
-          <div class="flex align-items-center justify-content-between">
-              <h5 class="m-0">Manage Books</h5>
-              <span class="p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <!-- <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." /> -->
-              </span>
-          </div>
-      </ng-template>
+  <p-table
+    #dt
+    [value]="books"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['title', 'description', 'stock', 'authorId']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+          <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="filterGlobal($event)" placeholder="Search keyword" />
+          </span>
+      </div>
+  </ng-template>
       <ng-template pTemplate="header">
           <tr>
-              <th pSortableColumn="name" style="min-width:15rem">Title</th>
-              <th pSortableColumn="category" style="min-width:10rem">Description</th>
-              <th pSortableColumn="rating">Stock</th>
-              <th pSortableColumn="price">Price </th>
-              <th pSortableColumn="inventoryStatus" style="min-width:10rem">Created Date</th>
-              <th></th>
+              <th style="min-width:15rem">Title</th>
+              <th style="min-width:10rem">Description</th>
+              <th>Stock</th>
+              <!-- <th pSortableColumn="price">Price </th> -->
+              <th style="min-width:10rem">Created Date</th>
+              <th>Author</th>
+              <th>Actions</th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-book>
           <tr>
-              <td>{{ product.name }}</td>
-              <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-              <td>{{ product.price | currency: 'USD' }}</td>
-              <td>{{ product.category }}</td>
+              <td>{{ book.title }}</td>
+              <td>{{ book.description }}</td>
+              <td>{{ book.stock }}</td>
+              <td>{{ book.createdDate | date: 'dd-MM-yyyy' }}</td>
+              <td>{{ book.authorId }}</td>
               <td>
                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editBook()"></button>
                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteBook()"></button>
@@ -35,8 +46,13 @@
           </tr>
       </ng-template>
       <ng-template pTemplate="summary">
-          <!-- <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div> -->
+          <div class="flex align-items-center justify-content-between">In total there are {{ books ? books.length : 0 }} books.</div>
       </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No books found.</td>
+        </tr>
+    </ng-template>
   </p-table>
 </div>
 <!-- <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true" styleClass="p-fluid">

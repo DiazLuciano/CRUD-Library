@@ -12,8 +12,6 @@ export const booksReducer = createReducer(
   initialState,
 
   on( getBooksSuccess, (state, {books} ) => {
-    console.log(state)
-    console.log(books)
     state = books;
     return state
   })

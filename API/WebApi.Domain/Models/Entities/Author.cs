@@ -11,6 +11,6 @@ namespace WebApi.Models.Entities
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(maximumLength: 50, MinimumLength = 3)]
         public string Lastname { get; set; }
-        public ICollection<Book> Books { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

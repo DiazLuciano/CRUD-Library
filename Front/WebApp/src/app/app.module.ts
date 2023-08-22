@@ -17,7 +17,6 @@ import { SharedModule } from 'src/shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { metaEffects } from './store/metaEffects';
 import { reducers } from './store/metaReducers';
-
 @NgModule({
   declarations: [
     AppComponent,

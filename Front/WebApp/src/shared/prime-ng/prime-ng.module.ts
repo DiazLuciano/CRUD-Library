@@ -4,8 +4,10 @@ import { ButtonModule } from 'primeng/button';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { MenubarModule } from 'primeng/menubar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 @NgModule({
   imports: [
     ButtonModule,
@@ -13,14 +15,18 @@ import { ToastModule } from 'primeng/toast';
     ProgressSpinnerModule,
     SortAltIcon,
     TableModule,
-    ToastModule
+    ToastModule,
+    ToolbarModule,
+    InputTextModule
   ],
   exports: [
     ButtonModule,
     MenubarModule,
     ProgressSpinnerModule,
     ToastModule,
-    TableModule
+    TableModule,
+    ToolbarModule,
+    InputTextModule
   ]
 })
 export class PrimeNgModule { }

@@ -4,6 +4,7 @@ using System.Reflection;
 using WebApi.Data.AccessData;
 using WebApi.Models.Profiles;
 using WebApi.Repositories;
+using WebApi.Repositories.Repositories;
 using WebApi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,7 @@ builder.Services.AddSwaggerGen();
 
 // Add Automapper.  
 builder.Services.AddAutoMapper(typeof(BookProfile));
+builder.Services.AddAutoMapper(typeof(AuthorProfile));
 
 // Add connection to MySql database.
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
@@ -36,9 +38,11 @@ builder.Services.AddDbContext<MySqlDbContext>(options =>
 
 // Add repositories.
 builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 // Add services.
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 // Add cors
 var devCorsPolicy = "devCorsPolicy";
