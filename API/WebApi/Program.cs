@@ -1,10 +1,7 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApi.Data.AccessData;
-using WebApi.Domain.Validators;
-using WebApi.Models.Dto;
 using WebApi.Models.Profiles;
 using WebApi.Repositories;
 using WebApi.Service;
@@ -43,6 +40,18 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 // Add services.
 builder.Services.AddScoped<IBookService, BookService>();
 
+// Add cors
+var devCorsPolicy = "devCorsPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(devCorsPolicy, builder => {
+        //builder.WithOrigins("http://localhost:4200").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
+        //builder.SetIsOriginAllowed(origin => true);
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,6 +59,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors(devCorsPolicy);
+}
+else
+{
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    //app.UseCors(prodCorsPolicy);
 }
 
 app.UseHttpsRedirection();

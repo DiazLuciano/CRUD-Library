@@ -8,6 +8,6 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   constructor() { }
 
   handleError(error: any): void {
-    console.log("Global Error: " + error);
+    console.log("Global Error: " + error.message);
   }
 }

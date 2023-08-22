@@ -18,12 +18,12 @@ export class MenuComponent {
                 {
                   label: 'Books',
                   icon: 'pi pi-fw pi-book',
-                  routerLink: ['/book/books']
+                  routerLink: ['/books/list']
                 },
                 {
                   label: 'New Book',
                   icon: 'pi pi-fw pi-plus',
-                  routerLink: ['/book/add-book']
+                  routerLink: ['/books/add-book']
                 }
               ]
           },

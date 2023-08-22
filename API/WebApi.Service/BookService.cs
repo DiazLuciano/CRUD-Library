@@ -35,7 +35,7 @@ namespace WebApi.Service
             var book = _mapper.Map<Book>(bookPostDto);
             var insertedBook = await _bookRepository.Insert(book);
             return _mapper.Map<BookDto>(insertedBook);
-        }
+        }   
 
         public async Task<bool> UpdateBook(int id, BookPostDto bookPostDto)
         {
