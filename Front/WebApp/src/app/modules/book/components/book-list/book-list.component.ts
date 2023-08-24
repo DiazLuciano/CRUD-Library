@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { BooksRes } from 'src/app/models/Books/booksRes';
 import { AppState } from 'src/app/models/appState/appState';
-import { deleteBook, deleteBookSuccess } from 'src/app/store/actions/books/books.actions';
+import { deleteBook } from 'src/app/store/actions/books/books.actions';
 
 @Component({
   selector: 'app-book-list',

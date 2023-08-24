@@ -1,4 +1,4 @@
-<p-card header="Add Author">
+<p-card header="Edit Author">
   <ng-template pTemplate="content">
     <p-toast></p-toast>
     <div class="ui-g ui-fluid">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="text-center">
-          <p-button label="Submit" (onClick)="AddAuthor()" [disabled]="authorForm.invalid"></p-button>
+          <p-button label="Submit" (onClick)="EditAuthor()" [disabled]="authorForm.invalid"></p-button>
         </div>
       </form>
     </div>

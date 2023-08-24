@@ -1,1 +1,53 @@
-<p>authors-list works!</p>
+
+<div class="card">
+  <p-toast></p-toast>
+  <p-table
+    #dt
+    [value]="authors"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['id','name', 'lastname']">
+      <ng-template pTemplate="caption">
+        <div class="flex topHeader">
+            <button pButton label="Clear" class="p-button-outlined m-0" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="filterGlobal($event)" placeholder="Search..." />
+            </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width:15rem">ID</th>
+            <th style="min-width:15rem">Nombre</th>
+            <th style="min-width:10rem">Apellido</th>
+            <th>Actions</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-author>
+          <tr>
+              <td>{{ author.id }}</td>
+              <td class="capital">{{ author.name }}</td>
+              <td class="capital">{{ author.lastname }}</td>
+              <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editAuthor(author.id)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteAuthor(author)"></button>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">In total there are {{ authors ? authors.length : 0 }} authors.</div>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No authors found.</td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAuthorComponent } from './components/add-author/add-author.component';
 import { AuthorsComponent } from './pages/authors/authors.component';
+import { AuthorEditComponent } from './components/author-edit/author-edit.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
         path: 'add-author',
         component: AddAuthorComponent,
         pathMatch: 'full'
+      },
+      {
+        path: 'edit-author',
+        component: AuthorEditComponent
       },
       {
         path: '**', redirectTo: 'list', pathMatch: 'full'

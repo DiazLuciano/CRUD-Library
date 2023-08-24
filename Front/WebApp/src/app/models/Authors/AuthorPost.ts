@@ -1,4 +1,4 @@
-export interface AuthorsRes {
+export interface AuthorPost {
   name:     string;
   lastname: string;
 }
