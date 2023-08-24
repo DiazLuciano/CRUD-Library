@@ -4,3 +4,11 @@
 body {
   font-family: var(--font-family);
 }
+
+.text-center{
+  text-align: center;
+}
+
+.capital {
+  text-transform: capitalize;
+}

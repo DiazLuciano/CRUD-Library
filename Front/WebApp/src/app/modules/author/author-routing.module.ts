@@ -1,19 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthorsComponent } from './components/authors/authors.component';
 import { AddAuthorComponent } from './components/add-author/add-author.component';
+import { AuthorsComponent } from './pages/authors/authors.component';
 
 const routes: Routes = [
   {
-    path: 'authors',
-    component: AuthorsComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'add-author',
-    component: AddAuthorComponent,
-    pathMatch: 'full'
-  },
+    path: '',
+    children: [
+      {
+        path: 'list',
+        component: AuthorsComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: 'add-author',
+        component: AddAuthorComponent,
+        pathMatch: 'full'
+      },
+      {
+        path: '**', redirectTo: 'list', pathMatch: 'full'
+      }
+    ]
+  }
 ];
 
 @NgModule({

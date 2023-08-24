@@ -1,4 +1,4 @@
-<p-card header="New Book">
+<p-card header="Edit Book">
   <ng-template pTemplate="content">
     <p-toast></p-toast>
     <div class="ui-g ui-fluid">
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="text-center">
-          <p-button label="Submit" (onClick)="SaveNewBook()" [disabled]="bookForm.invalid"></p-button>
+          <p-button label="Submit" (onClick)="EditBook()" [disabled]="bookForm.invalid"></p-button>
         </div>
       </form>
     </div>

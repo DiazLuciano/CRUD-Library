@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { BooksRes } from 'src/app/models/Books/booksRes';
 import { AppState } from 'src/app/models/appState/appState';
-import { getBooks } from 'src/app/store/actions/books/books.actions';
+import { deleteBook, deleteBookSuccess } from 'src/app/store/actions/books/books.actions';
 
 @Component({
   selector: 'app-book-list',
@@ -13,23 +14,15 @@ import { getBooks } from 'src/app/store/actions/books/books.actions';
   providers: [MessageService, ConfirmationService]
 })
 export class BookListComponent implements OnInit {
-  loading: boolean = true;
+
   @ViewChild('dt') dt: Table | undefined;
-
   bookDialog: boolean = false;
-
   books: BooksRes[] = [];
 
-  book!: BooksRes;
-
-  selectedBooks!: BooksRes[] | null;
-
-  submitted: boolean = false;
-
-  statuses!: any[];
-
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private confirmationService: ConfirmationService,
+    private router: Router
   ){}
 
   ngOnInit(): void {
@@ -40,7 +33,6 @@ export class BookListComponent implements OnInit {
     this.store.select( AppState => AppState.books )
       .subscribe( books => {
         this.books = books;
-        this.loading = false;
       })
   }
 
@@ -48,13 +40,21 @@ export class BookListComponent implements OnInit {
     table.clear();
   }
 
-  editBook():void{
-
+  editBook(bookId: number):void{
+    if(bookId)
+      this.router.navigate(['/books/edit-book', { bookId : bookId }]);
   }
 
-  deleteBook():void{
-
-  }
+  deleteBook(book: BooksRes) {
+    this.confirmationService.confirm({
+        message: '¿Esta seguro que desea eliminar ' + book.title + '?',
+        header: 'Confirmacion',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.store.dispatch(deleteBook({ bookId : book.id}));
+        }
+    });
+}
 
   filterGlobal($event:any) {
     const inputElement = $event.target as HTMLInputElement;
